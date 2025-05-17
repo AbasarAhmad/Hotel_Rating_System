@@ -1,0 +1,5 @@
+package com.saar.userservice.repositories;
+
+public interface UserRepository {
+
+}
