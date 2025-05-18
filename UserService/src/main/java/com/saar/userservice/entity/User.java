@@ -1,8 +1,12 @@
 package com.saar.userservice.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +27,6 @@ public class User {
 	private String email;
 	private String about;
 	
+	@Transient   // Transient ki vjah se ratings ko database mai store nhi krega 
+	private List<Rating> ratings=new ArrayList<>();
 }
