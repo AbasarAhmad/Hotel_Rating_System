@@ -18,7 +18,7 @@ import com.saar.userservice.entity.User;
 import com.saar.userservice.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired

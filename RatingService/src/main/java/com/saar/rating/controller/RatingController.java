@@ -53,7 +53,7 @@ public class RatingController {
 	}
 	
 	
-	@GetMapping("/getAll")
+	@GetMapping("/get")
 	public ResponseEntity<List<Rating>> getAllRating()
 	{
 		return ResponseEntity.ok(ratingService.getAllRating());

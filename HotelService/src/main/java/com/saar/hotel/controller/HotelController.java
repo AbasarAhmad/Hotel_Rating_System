@@ -18,7 +18,7 @@ import com.saar.hotel.entity.Hotel;
 import com.saar.hotel.server.HotelService;
 
 @RestController
-@RequestMapping("/hotel")
+@RequestMapping("/hotels")
 public class HotelController {
 	@Autowired
 	private HotelService hotelService;
@@ -47,7 +47,7 @@ public class HotelController {
 		Hotel hotel=hotelService.getHotel(hotelId);
 		return ResponseEntity.status(HttpStatus.CREATED).body(hotel);
 	}
-	@GetMapping("/getAll")
+	@GetMapping("/get")
 	public ResponseEntity<List<Hotel>>getAllHotel()
 	{
 		List<Hotel> hotels=hotelService.getAllHotel();
