@@ -21,7 +21,7 @@ spring:
         - id: HOTELSERVICE
           uri: lb://HOTELSERVICE
           predicates:
-            - Path=/hotels/**
+            - Path=/hotels/**, /staffs/**  # ab hamara postman request hotel and staffs dono ke liye aayegi
 
 eureka:
   instance:

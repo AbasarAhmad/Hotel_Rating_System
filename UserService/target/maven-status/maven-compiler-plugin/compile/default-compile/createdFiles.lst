@@ -1,0 +1,15 @@
+com\saar\userservice\exception\GlobalExceptionHandler.class
+com\saar\userservice\service\impl\UserServiceImpl.class
+com\saar\userservice\controller\UserController.class
+com\saar\userservice\external\services\HotelService.class
+com\saar\userservice\config\MyConfig.class
+com\saar\userservice\entity\User.class
+com\saar\userservice\UserServiceApplication.class
+com\saar\userservice\exception\ApiResponse$ApiResponseBuilder.class
+com\saar\userservice\service\UserService.class
+com\saar\userservice\entity\Hotel.class
+com\saar\userservice\service\impl\UserService.class
+com\saar\userservice\exception\ResourceNotFoundException.class
+com\saar\userservice\repositories\UserRepository.class
+com\saar\userservice\entity\Rating.class
+com\saar\userservice\exception\ApiResponse.class
