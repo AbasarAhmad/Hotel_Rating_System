@@ -16,11 +16,16 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
 
-#  application:
-#    name: USERSERVICE
+  application:
+    name: USERSERVICE
 
   config:
     import: optional:configserver:http://localhost:8084
+
+#this is for switch fro default git yml file to prod or dev
+#  profiles:
+#    active:
+#    - prod
 
 #eureka:
 #  instance:
