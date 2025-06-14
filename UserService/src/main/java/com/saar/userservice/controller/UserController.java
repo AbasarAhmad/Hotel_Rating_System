@@ -2,6 +2,8 @@ package com.saar.userservice.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.saar.userservice.entity.User;
 import com.saar.userservice.service.UserService;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
 	
 	@PostMapping("/add")
 	public ResponseEntity<User> createUser(@RequestBody User user)
@@ -47,9 +54,19 @@ public class UserController {
 	}
 
 	@GetMapping("/get/{userId}")
+	@CircuitBreaker(name="ratingHotelBreaker",fallbackMethod = "ratingHotelFallback")
 	public ResponseEntity<User> getByIdUser(@PathVariable String userId)
 	{
 		User user1=userService.getUser(userId);
+		return ResponseEntity.status(HttpStatus.CREATED).body(user1);
+	}
+	
+	public ResponseEntity<User> ratingHotelFallback(String userId, Exception ex)
+	{
+		logger.info("Fallback is executed because service is down : ",ex.getMessage());
+		User user1=User.builder().name("Default").email("Default43t@gmail.com")
+		.about("It will run when Rating or Hotel Project will be down")
+		.userId("123456789").build();
 		return ResponseEntity.status(HttpStatus.CREATED).body(user1);
 	}
 	
