@@ -20,6 +20,7 @@ import com.saar.userservice.entity.User;
 import com.saar.userservice.service.UserService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 
 @Controller
@@ -57,7 +58,8 @@ public class UserController {
 	int retryCount=1;
 	@GetMapping("/get/{userId}")
 //	@CircuitBreaker(name="ratingHotelBreaker",fallbackMethod = "ratingHotelFallback")
-	@Retry(name="ratingHotelService",fallbackMethod = "ratingHotelFallback")
+//	@Retry(name="ratingHotelService",fallbackMethod = "ratingHotelFallback")
+	@RateLimiter(name="userRateLimiter",fallbackMethod="ratingHotelFallback")
 	public ResponseEntity<User> getByIdUser(@PathVariable String userId)
 	{
 		logger.info("Get Single User Handler: UserController ");
