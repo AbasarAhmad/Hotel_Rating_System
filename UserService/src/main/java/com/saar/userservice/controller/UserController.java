@@ -20,6 +20,7 @@ import com.saar.userservice.entity.User;
 import com.saar.userservice.service.UserService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 
 @Controller
 @RequestMapping("/users")
@@ -52,13 +53,20 @@ public class UserController {
 		String str=userService.deleteUser(userId);
 		return ResponseEntity.status(HttpStatus.CREATED).body(str);
 	}
-
+	
+	int retryCount=1;
 	@GetMapping("/get/{userId}")
-	@CircuitBreaker(name="ratingHotelBreaker",fallbackMethod = "ratingHotelFallback")
+//	@CircuitBreaker(name="ratingHotelBreaker",fallbackMethod = "ratingHotelFallback")
+	@Retry(name="ratingHotelService",fallbackMethod = "ratingHotelFallback")
 	public ResponseEntity<User> getByIdUser(@PathVariable String userId)
 	{
+		logger.info("Get Single User Handler: UserController ");
+		logger.info("Retry count: {} ", retryCount);
+		retryCount ++;
 		User user1=userService.getUser(userId);
+		retryCount ++;
 		return ResponseEntity.status(HttpStatus.CREATED).body(user1);
+		
 	}
 	
 	public ResponseEntity<User> ratingHotelFallback(String userId, Exception ex)
